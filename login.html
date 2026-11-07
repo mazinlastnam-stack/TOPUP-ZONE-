@@ -3,714 +3,293 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>تسجيل الدخول · متجرنا</title>
+<meta name="theme-color" content="#070707">
+<title>تسجيل الدخول · TOPUP ZONE</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
 <style>
-  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-  :root{
-    --primary:#6366f1;--primary-dark:#4f46e5;--accent:#8b5cf6;
-    --success:#10b981;--error:#ef4444;--warning:#f59e0b;
-    --text:#0f172a;--muted:#64748b;--light:#94a3b8;
-    --border:#e2e8f0;--surface:#fff;--surface-alt:#f8fafc;
-    --radius:14px;--shadow-lg:0 24px 60px -12px rgba(15,23,42,.18);
-    --glow:0 8px 24px rgba(99,102,241,.35);
-    --transition:.25s cubic-bezier(.4,0,.2,1);
-  }
-  html,body{height:100%}
-  body{
-    font-family:'Tajawal','Segoe UI',Tahoma,sans-serif;
-    background:#eef2ff;color:var(--text);
-    display:grid;place-items:center;padding:20px;
-    min-height:100vh;min-height:100dvh;overflow-x:hidden;
-    line-height:1.6;-webkit-font-smoothing:antialiased;
-    position:relative;
-  }
-  .bg-decor{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
-  .bg-decor span{position:absolute;border-radius:50%;filter:blur(80px);opacity:.5;animation:float 20s infinite ease-in-out}
-  .bg-decor span:nth-child(1){width:500px;height:500px;background:radial-gradient(circle,#a5b4fc,transparent 70%);top:-200px;right:-150px}
-  .bg-decor span:nth-child(2){width:400px;height:400px;background:radial-gradient(circle,#c4b5fd,transparent 70%);bottom:-150px;left:-100px;animation-delay:-7s}
-  .bg-decor span:nth-child(3){width:300px;height:300px;background:radial-gradient(circle,#fbcfe8,transparent 70%);top:40%;left:40%;animation-delay:-14s}
-  @keyframes float{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(30px,-30px) scale(1.1)}}
-
-  .shell{
-    position:relative;z-index:1;width:100%;max-width:1050px;
-    display:grid;grid-template-columns:1fr 1.05fr;
-    background:var(--surface);border-radius:28px;overflow:hidden;
-    box-shadow:var(--shadow-lg);min-height:660px;
-    animation:rise .8s cubic-bezier(.16,1,.3,1);
-  }
-  @keyframes rise{from{opacity:0;transform:translateY(30px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
-
-  .brand{
-    position:relative;
-    background:linear-gradient(135deg,#4f46e5 0%,#7c3aed 50%,#a855f7 100%);
-    color:#fff;padding:56px 48px;
-    display:flex;flex-direction:column;justify-content:space-between;
-    overflow:hidden;
-  }
-  .brand::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle at 20% 20%,rgba(255,255,255,.15),transparent 40%),radial-gradient(circle at 80% 80%,rgba(255,255,255,.10),transparent 40%);pointer-events:none}
-  .brand::after{content:'';position:absolute;width:300px;height:300px;border:40px solid rgba(255,255,255,.05);border-radius:50%;bottom:-120px;left:-120px}
-  .brand>*{position:relative;z-index:1}
-  .logo{display:inline-flex;align-items:center;gap:12px;font-size:22px;font-weight:800}
-  .logo-mark{width:44px;height:44px;background:rgba(255,255,255,.15);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.25);border-radius:12px;display:grid;place-items:center}
-  .brand h1{font-size:38px;font-weight:800;line-height:1.2;margin:32px 0 16px}
-  .brand h1 em{font-style:normal;background:linear-gradient(90deg,#fde68a,#fca5a5);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-  .brand-lead{font-size:15.5px;opacity:.85;max-width:380px;line-height:1.7}
-  .features{list-style:none;margin-top:36px;display:grid;gap:14px}
-  .features li{display:flex;align-items:center;gap:12px;font-size:14.5px;opacity:.95}
-  .feature-icon{flex-shrink:0;width:30px;height:30px;border-radius:9px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);display:grid;place-items:center}
-  .brand-footer{font-size:12.5px;opacity:.7;margin-top:32px}
-
-  .form-area{padding:48px 44px;display:flex;flex-direction:column;justify-content:center;background:var(--surface)}
-  .mobile-logo{display:none;align-items:center;gap:10px;margin-bottom:24px;font-weight:800;font-size:18px;color:var(--primary);justify-content:center}
-  .mobile-logo .logo-mark{background:var(--primary);color:#fff;width:36px;height:36px;border-radius:10px;display:grid;place-items:center}
-
-  .steps{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:32px}
-  .step-dot{width:32px;height:32px;border-radius:50%;background:var(--surface-alt);border:2px solid var(--border);display:grid;place-items:center;font-size:13px;font-weight:700;color:var(--light);transition:var(--transition)}
-  .step-dot.active{background:var(--primary);border-color:var(--primary);color:#fff;box-shadow:0 0 0 4px rgba(99,102,241,.15)}
-  .step-dot.done{background:var(--success);border-color:var(--success);color:#fff}
-  .step-line{flex:1;max-width:60px;height:2px;background:var(--border);border-radius:2px;transition:var(--transition)}
-  .step-line.done{background:var(--success)}
-
-  .panel{display:none;animation:slideIn .4s cubic-bezier(.16,1,.3,1)}
-  .panel.active{display:block}
-  @keyframes slideIn{from{opacity:0;transform:translateX(-16px)}to{opacity:1;transform:translateX(0)}}
-  .panel-title{font-size:26px;font-weight:800;margin-bottom:6px}
-  .panel-subtitle{color:var(--muted);font-size:14.5px;margin-bottom:26px}
-
-  .field{margin-bottom:16px}
-  .field-label{display:flex;justify-content:space-between;align-items:center;font-size:13.5px;font-weight:500;margin-bottom:8px}
-  .field-label .hint{color:var(--light);font-size:12px;font-weight:400}
-  .input-wrap{position:relative;display:flex;align-items:center;border:2px solid var(--border);border-radius:var(--radius);background:var(--surface);transition:var(--transition);overflow:hidden}
-  .input-wrap:focus-within{border-color:var(--primary);box-shadow:0 0 0 4px rgba(99,102,241,.1)}
-  .input-wrap.error{border-color:var(--error);box-shadow:0 0 0 4px rgba(239,68,68,.1);animation:shake .4s}
-  @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
-  .country-select{appearance:none;-webkit-appearance:none;background:var(--surface-alt);border:none;border-inline-end:1px solid var(--border);padding:14px;font-family:inherit;font-size:14px;font-weight:600;color:var(--text);cursor:pointer;outline:none}
-  .country-select:hover{background:#f1f5f9}
-  .input-field{flex:1;border:none;outline:none;background:transparent;padding:14px 16px;font-family:inherit;font-size:16px;color:var(--text)}
-  .input-field::placeholder{color:var(--light)}
-  .input-field.ltr{direction:ltr;text-align:left;letter-spacing:.5px}
-  .input-field.ltr::placeholder{direction:rtl;text-align:right;letter-spacing:0}
-
-  .btn{width:100%;border:none;border-radius:var(--radius);padding:15px 20px;font-family:inherit;font-size:15.5px;font-weight:700;cursor:pointer;transition:var(--transition);display:inline-flex;align-items:center;justify-content:center;gap:8px;position:relative;overflow:hidden}
-  .btn-primary{background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;box-shadow:var(--glow)}
-  .btn-primary:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 12px 28px rgba(99,102,241,.4)}
-  .btn-success{background:linear-gradient(135deg,var(--success),#059669);color:#fff;box-shadow:0 8px 24px rgba(16,185,129,.3)}
-  .btn-success:hover:not(:disabled){transform:translateY(-2px)}
-  .btn:disabled{opacity:.55;cursor:not-allowed;box-shadow:none}
-  .btn-ghost{background:transparent;color:var(--muted);border:1px solid var(--border);margin-top:12px;font-size:14px;padding:11px}
-  .btn-ghost:hover{background:var(--surface-alt);color:var(--text)}
-  .btn-danger{background:transparent;color:var(--error);border:1px solid rgba(239,68,68,.3);margin-top:12px;font-size:14px;padding:11px}
-  .btn-danger:hover{background:rgba(239,68,68,.05)}
-  .btn.loading{pointer-events:none;color:transparent}
-  .btn.loading::after{content:'';position:absolute;width:20px;height:20px;border:2.5px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite}
-  @keyframes spin{to{transform:rotate(360deg)}}
-
-  /* Waiting state */
-  .waiting-state{text-align:center;padding:20px 0}
-  .pulse-ring{position:relative;width:100px;height:100px;margin:0 auto 24px}
-  .pulse-ring::before,.pulse-ring::after{content:'';position:absolute;inset:0;border-radius:50%;background:var(--primary);opacity:.15;animation:pulseRing 2s infinite}
-  .pulse-ring::after{animation-delay:.7s}
-  .pulse-icon{position:absolute;inset:15px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));display:grid;place-items:center;color:#fff;box-shadow:var(--glow)}
-  @keyframes pulseRing{0%{transform:scale(.9);opacity:.5}100%{transform:scale(1.6);opacity:0}}
-  .waiting-state h2{font-size:22px;font-weight:800;margin-bottom:8px}
-  .waiting-state p{color:var(--muted);font-size:14.5px;margin-bottom:24px}
-  .waiting-info{background:var(--surface-alt);border:1px solid var(--border);border-radius:12px;padding:14px;font-size:13px;color:var(--muted);text-align:right;margin-bottom:20px}
-  .waiting-info div{display:flex;justify-content:space-between;padding:4px 0}
-  .waiting-info span:first-child{color:var(--muted)}
-  .waiting-info span:last-child{color:var(--text);font-weight:700}
-
-  /* OTP */
-  .otp-boxes{display:flex;justify-content:center;gap:10px;margin:8px 0 20px;direction:ltr}
-  .otp-box{width:54px;height:64px;border:2px solid var(--border);border-radius:var(--radius);text-align:center;font-size:26px;font-weight:800;color:var(--text);background:var(--surface);outline:none;transition:var(--transition);font-family:inherit;caret-color:var(--primary)}
-  .otp-box:focus{border-color:var(--primary);box-shadow:0 0 0 4px rgba(99,102,241,.15);transform:translateY(-2px)}
-  .otp-box.filled{border-color:var(--primary);background:linear-gradient(180deg,rgba(99,102,241,.06),transparent)}
-  .otp-box.error{border-color:var(--error);animation:shake .4s}
-  .otp-meta{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--muted);margin-bottom:20px}
-  .otp-meta strong{color:var(--text);font-weight:700;font-family:monospace;direction:ltr}
-
-  .demo-badge{display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,#fef3c7,#fed7aa);border:1px dashed #f59e0b;color:#92400e;padding:10px 14px;border-radius:10px;font-size:12px;margin-bottom:16px;flex-wrap:wrap;justify-content:center}
-  .demo-badge code{background:rgba(255,255,255,.75);padding:2px 8px;border-radius:5px;font-weight:800;letter-spacing:2px;font-size:13px;color:#78350f;direction:ltr;font-family:monospace}
-  .demo-hint{font-size:10.5px;color:#a16207;width:100%;text-align:center;margin-top:2px}
-
-  /* Success */
-  .success-screen{text-align:center;padding:20px 0}
-  .success-icon{width:88px;height:88px;margin:0 auto 20px;border-radius:50%;background:linear-gradient(135deg,var(--success),#059669);display:grid;place-items:center;color:#fff;box-shadow:0 12px 32px rgba(16,185,129,.35);animation:pop .6s cubic-bezier(.34,1.56,.64,1)}
-  @keyframes pop{0%{transform:scale(0)}60%{transform:scale(1.1)}100%{transform:scale(1)}}
-  .success-screen h2{font-size:24px;font-weight:800;margin-bottom:8px}
-  .success-screen p{color:var(--muted);margin-bottom:24px}
-  .progress-bar{width:200px;height:5px;background:var(--border);border-radius:3px;margin:20px auto 0;overflow:hidden}
-  .progress-bar span{display:block;height:100%;background:linear-gradient(90deg,var(--primary),var(--accent));border-radius:3px;animation:progress 2.5s ease-in-out forwards}
-  @keyframes progress{from{width:0}to{width:100%}}
-
-  /* Rejected */
-  .rejected-icon{width:88px;height:88px;margin:0 auto 20px;border-radius:50%;background:linear-gradient(135deg,var(--error),#b91c1c);display:grid;place-items:center;color:#fff;box-shadow:0 12px 32px rgba(239,68,68,.3)}
-
-  .switch-link{text-align:center;margin-top:24px;font-size:13px;color:var(--muted)}
-  .switch-link a{color:var(--primary);text-decoration:none;font-weight:700}
-  .switch-link a:hover{text-decoration:underline}
-
-  .toast-container{position:fixed;top:20px;left:50%;transform:translateX(-50%);z-index:9999;display:flex;flex-direction:column;gap:8px;pointer-events:none}
-  .toast{background:var(--surface);border-radius:var(--radius);padding:14px 18px;box-shadow:0 10px 32px rgba(15,23,42,.15);font-size:14px;font-weight:500;min-width:280px;max-width:400px;border-inline-start:4px solid var(--primary);animation:toastIn .35s cubic-bezier(.16,1,.3,1);pointer-events:auto}
-  .toast.success{border-inline-start-color:var(--success)}
-  .toast.error{border-inline-start-color:var(--error)}
-  .toast.warning{border-inline-start-color:var(--warning)}
-  .toast.leaving{animation:toastOut .3s forwards}
-  @keyframes toastIn{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
-  @keyframes toastOut{to{opacity:0;transform:translateY(-20px)}}
-
-  @media(max-width:900px){
-    body{padding:12px}
-    .shell{grid-template-columns:1fr;min-height:auto;border-radius:22px;max-width:480px}
-    .brand{display:none}
-    .form-area{padding:32px 24px}
-    .mobile-logo{display:flex}
-  }
-  @media(max-width:420px){
-    .otp-box{width:44px;height:54px;font-size:22px}
-    .panel-title{font-size:22px}
-  }
-  .hidden{display:none !important}
-  :focus-visible{outline:2px solid var(--primary);outline-offset:2px}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--gold1:#ffe58f;--gold2:#f5b700;--gold3:#b97a00;--gold-grad:linear-gradient(135deg,#ffe58f 0%,#f5b700 45%,#b97a00 100%);
+  --bg:#070707;--s1:#101010;--s2:#171717;--s3:#202020;--line:rgba(245,183,0,.16);--line2:rgba(255,255,255,.09);
+  --text:#f5f5f5;--muted:#a3a3a3;--dim:#6b6b6b;--ok:#22c55e;--err:#ef4444;--r:14px;--ease:.28s cubic-bezier(.4,0,.2,1)}
+html,body{min-height:100%}
+body{font-family:'Tajawal','Segoe UI',Tahoma,sans-serif;background:var(--bg);color:var(--text);display:grid;place-items:center;padding:20px;min-height:100vh;min-height:100dvh;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;z-index:-1;background:radial-gradient(600px 420px at 90% 0,rgba(245,183,0,.16),transparent 70%),radial-gradient(500px 400px at 0 100%,rgba(185,122,0,.12),transparent 70%),linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px) 0 0/44px 44px,linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px) 0 0/44px 44px}
+a{color:inherit;text-decoration:none}button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}input{font-family:inherit;font-size:15px;color:var(--text)}
+.hidden{display:none!important}:focus-visible{outline:2px solid var(--gold2);outline-offset:2px}
+.gold-text{background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.shell{width:100%;max-width:980px;display:grid;grid-template-columns:1fr 1.05fr;background:var(--s1);border:1px solid var(--line);border-radius:28px;overflow:hidden;box-shadow:0 30px 80px -20px rgba(0,0,0,.8);animation:rise .7s cubic-bezier(.16,1,.3,1)}
+@keyframes rise{from{opacity:0;transform:translateY(26px) scale(.98)}}
+.side{position:relative;padding:44px 40px;display:flex;flex-direction:column;justify-content:space-between;gap:24px;background:linear-gradient(160deg,#1d1500 0%,#0a0a0a 60%);border-inline-end:1px solid var(--line);overflow:hidden}
+.side::before{content:'';position:absolute;width:320px;height:320px;border:44px solid rgba(245,183,0,.06);border-radius:50%;bottom:-130px;inset-inline-start:-110px}
+.side>*{position:relative}
+.brand{display:flex;align-items:center;gap:12px}
+.brand .mk{width:52px;height:52px;display:grid;place-items:center}.brand .mk img{width:100%;height:100%;object-fit:contain}
+.brand .tx{line-height:1;font-weight:900;font-size:22px;direction:ltr;text-align:left}.brand .tx b{display:block}.brand .tx i{display:block;font-style:normal}
+.side h1{font-size:32px;font-weight:900;line-height:1.25;margin-bottom:12px}
+.side p{color:var(--muted);font-size:15px;max-width:340px}
+.side ul{list-style:none;display:grid;gap:12px;margin-top:22px}
+.side li{display:flex;align-items:center;gap:12px;font-size:14.5px}
+.side li span{width:30px;height:30px;border-radius:9px;background:rgba(245,183,0,.1);border:1px solid var(--line);display:grid;place-items:center;font-size:14px}
+.side small{color:var(--dim);font-size:12px}
+.form-area{padding:40px 38px;display:flex;flex-direction:column;justify-content:center}
+.m-brand{display:none;justify-content:center;margin-bottom:18px}
+.seg{display:grid;grid-template-columns:1fr 1fr;background:var(--s2);border:1px solid var(--line2);border-radius:14px;padding:4px;margin-bottom:24px;position:relative}
+.seg button{padding:11px;border-radius:10px;font-weight:800;font-size:14.5px;color:var(--muted);position:relative;z-index:1;transition:var(--ease)}
+.seg button.on{color:#1a1200}
+.seg .pill{position:absolute;top:4px;bottom:4px;width:calc(50% - 4px);inset-inline-start:4px;border-radius:10px;background:var(--gold-grad);transition:var(--ease)}
+.seg.reg .pill{transform:translateX(-100%)}
+.panel{animation:slide .4s cubic-bezier(.16,1,.3,1)}
+@keyframes slide{from{opacity:0;transform:translateY(10px)}}
+.panel h2{font-size:25px;font-weight:900;margin-bottom:4px}
+.panel .sub{color:var(--muted);font-size:14px;margin-bottom:22px}
+.field{margin-bottom:14px}
+.field label{display:flex;justify-content:space-between;font-size:13px;font-weight:700;color:var(--muted);margin-bottom:6px}
+.field label i{color:var(--err);font-style:normal}.field label .h{color:var(--dim);font-weight:400;font-size:12px}
+.wrap{display:flex;align-items:center;background:var(--s2);border:1.5px solid var(--line2);border-radius:var(--r);transition:var(--ease);overflow:hidden}
+.wrap:focus-within{border-color:var(--gold2);box-shadow:0 0 0 4px rgba(245,183,0,.1)}
+.wrap.err{border-color:var(--err);box-shadow:0 0 0 4px rgba(239,68,68,.1);animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.wrap input{flex:1;min-width:0;background:none;border:none;outline:none;padding:13px 14px}
+.wrap input.ltr{direction:ltr;text-align:left}.wrap input.ltr::placeholder{text-align:right;direction:rtl}
+.wrap input::placeholder{color:var(--dim)}
+.eye{padding:0 14px;color:var(--dim);display:grid;place-items:center;height:100%}.eye:hover{color:var(--gold2)}
+.ferr{color:#fca5a5;font-size:12px;margin-top:5px;display:none}
+.meter{height:4px;background:var(--s3);border-radius:4px;margin-top:8px;overflow:hidden}.meter span{display:block;height:100%;width:0;transition:var(--ease);border-radius:4px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:4px 0 18px;font-size:13.5px}
+.chk{display:flex;align-items:center;gap:8px;color:var(--muted);cursor:pointer}.chk input{accent-color:#f5b700;width:17px;height:17px}
+.lnk{color:var(--gold1);font-weight:700}.lnk:hover{text-decoration:underline}
+.btn{width:100%;padding:14px;border-radius:var(--r);font-weight:900;font-size:15.5px;display:inline-flex;align-items:center;justify-content:center;gap:8px;position:relative;transition:var(--ease)}
+.btn-gold{background:var(--gold-grad);color:#1a1200;box-shadow:0 10px 28px rgba(245,183,0,.28)}
+.btn-gold:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 14px 36px rgba(245,183,0,.4)}
+.btn:disabled{opacity:.55;cursor:not-allowed}
+.btn.loading{color:transparent;pointer-events:none}.btn.loading::after{content:'';position:absolute;width:20px;height:20px;border:2.5px solid rgba(0,0,0,.25);border-top-color:#1a1200;border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.back{text-align:center;margin-top:22px;font-size:13.5px;color:var(--muted)}
+.alert{padding:11px 14px;border-radius:12px;font-size:13.5px;margin-bottom:16px;display:none;border:1px solid}
+.alert.err{display:block;background:rgba(239,68,68,.08);border-color:rgba(239,68,68,.35);color:#fca5a5}
+.alert.ok{display:block;background:rgba(34,197,94,.08);border-color:rgba(34,197,94,.35);color:#86efac}
+.modal{position:fixed;inset:0;z-index:50;display:none;place-items:center;padding:16px}.modal.open{display:grid}
+.modal .ov{position:absolute;inset:0;background:rgba(0,0,0,.78);backdrop-filter:blur(4px)}
+.modal .box{position:relative;width:100%;max-width:420px;background:var(--s1);border:1px solid var(--line);border-radius:20px;padding:24px;animation:rise .35s}
+.modal h3{font-size:19px;margin-bottom:8px}.modal p{color:var(--muted);font-size:14px;margin-bottom:16px}
+.done{text-align:center;padding:20px 0}
+.done .ic{width:84px;height:84px;margin:0 auto 16px;border-radius:50%;background:linear-gradient(135deg,#22c55e,#15803d);display:grid;place-items:center;font-size:42px;box-shadow:0 12px 32px rgba(34,197,94,.35);animation:pop .55s cubic-bezier(.34,1.56,.64,1)}
+@keyframes pop{from{transform:scale(0)}}
+.bar{width:180px;height:5px;background:var(--s3);border-radius:3px;margin:18px auto 0;overflow:hidden}.bar span{display:block;height:100%;background:var(--gold-grad);animation:prog 1.6s ease-in-out forwards}
+@keyframes prog{from{width:0}to{width:100%}}
+.toasts{position:fixed;top:18px;left:50%;transform:translateX(-50%);z-index:200;display:grid;gap:8px;width:calc(100% - 28px);max-width:360px}
+.toast{background:var(--s3);border:1px solid var(--line);border-inline-start:4px solid var(--gold2);padding:12px 16px;border-radius:12px;font-weight:600;font-size:14px;box-shadow:0 12px 32px rgba(0,0,0,.6);animation:tin .3s}
+.toast.err{border-inline-start-color:var(--err)}.toast.ok{border-inline-start-color:var(--ok)}
+@keyframes tin{from{opacity:0;transform:translateY(-12px)}}
+@media(max-width:860px){.shell{grid-template-columns:1fr;max-width:480px;border-radius:24px}.side{display:none}.form-area{padding:30px 22px}.m-brand{display:flex}body{padding:12px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
-  <div class="bg-decor" aria-hidden="true"><span></span><span></span><span></span></div>
+<div class="shell">
+  <aside class="side">
+    <a class="brand" href="index.html" id="brandSide"></a>
+    <div>
+      <h1>اشحن <span class="gold-text">اشترك</span> العب</h1>
+      <p>أنشئ حسابك لتتابع طلباتك، وتتمم الشراء بسرعة من هاتفك.</p>
+      <ul>
+        <li><span>🔒</span>لا نطلب كلمة مرور حسابات الألعاب</li>
+        <li><span>📦</span>تابع حالة طلباتك لحظة بلحظة</li>
+        <li><span>💬</span>دعم مباشر عبر واتساب</li>
+      </ul>
+    </div>
+    <small>© <span id="yr"></span> TOPUP ZONE</small>
+  </aside>
 
-  <div class="shell">
-    <main class="form-area">
-      <div class="mobile-logo">
-        <span class="logo-mark"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></span>
-        <span>متجرنا</span>
-      </div>
+  <main class="form-area">
+    <a class="brand m-brand" href="index.html" id="brandMobile"></a>
 
-      <div class="steps">
-        <div class="step-dot active" data-step="1">1</div>
-        <div class="step-line"></div>
-        <div class="step-dot" data-step="2">2</div>
-        <div class="step-line"></div>
-        <div class="step-dot" data-step="3">3</div>
-      </div>
+    <div class="seg" id="seg">
+      <span class="pill"></span>
+      <button class="on" data-tab="login" type="button">تسجيل الدخول</button>
+      <button data-tab="register" type="button">إنشاء حساب</button>
+    </div>
 
-      <!-- ========= STEP 1: Name + Phone ========= -->
-      <section class="panel active" id="panel-1">
-        <h2 class="panel-title">تسجيل الدخول</h2>
-        <p class="panel-subtitle">أدخل اسمك ورقم هاتفك ليصلك رمز الدخول من المتجر.</p>
+    <!-- LOGIN -->
+    <section class="panel" id="pLogin">
+      <h2>أهلاً بعودتك 👋</h2><p class="sub">سجّل الدخول لمتابعة طلباتك.</p>
+      <div class="alert" id="loginAlert"></div>
+      <form id="loginForm" novalidate>
+        <div class="field"><label for="lId"><span>البريد الإلكتروني أو رقم الهاتف <i>*</i></span></label>
+          <div class="wrap"><input class="ltr" id="lId" autocomplete="username" placeholder="name@email.com أو 09XXXXXXXX"></div><div class="ferr"></div></div>
+        <div class="field"><label for="lPw"><span>كلمة المرور <i>*</i></span></label>
+          <div class="wrap"><input class="ltr" type="password" id="lPw" autocomplete="current-password" placeholder="••••••••"><button type="button" class="eye" data-eye="lPw" aria-label="إظهار كلمة المرور">👁</button></div><div class="ferr"></div></div>
+        <div class="row"><label class="chk"><input type="checkbox" id="remember"> تذكرني</label><a href="#" class="lnk" id="forgot">نسيت كلمة المرور؟</a></div>
+        <button class="btn btn-gold" id="loginBtn" type="submit">تسجيل الدخول</button>
+      </form>
+    </section>
 
-        <div class="field">
-          <label class="field-label" for="nameInput">
-            <span>الاسم الكامل</span>
-            <span class="hint">كما سيظهر في حسابك</span>
-          </label>
-          <div class="input-wrap" id="nameWrap">
-            <input class="input-field" type="text" id="nameInput" placeholder="مثال: أحمد محمد" autocomplete="name" maxlength="40" />
-          </div>
-          <span id="nameError" style="color:var(--error);font-size:12px;margin-top:6px;display:none"></span>
-        </div>
+    <!-- REGISTER -->
+    <section class="panel hidden" id="pReg">
+      <h2>إنشاء حساب جديد</h2><p class="sub">دقيقة واحدة وتبدأ التسوق.</p>
+      <div class="alert" id="regAlert"></div>
+      <form id="regForm" novalidate>
+        <div class="field"><label for="rName"><span>الاسم الكامل <i>*</i></span></label><div class="wrap"><input id="rName" autocomplete="name" maxlength="40" placeholder="مثال: أحمد محمد"></div><div class="ferr"></div></div>
+        <div class="field"><label for="rPhone"><span>رقم الهاتف (واتساب) <i>*</i></span></label><div class="wrap"><input class="ltr" id="rPhone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+249 9X XXX XXXX"></div><div class="ferr"></div></div>
+        <div class="field"><label for="rEmail"><span>البريد الإلكتروني</span><span class="h">اختياري</span></label><div class="wrap"><input class="ltr" id="rEmail" type="email" autocomplete="email" placeholder="name@email.com"></div><div class="ferr"></div></div>
+        <div class="field"><label for="rPw"><span>كلمة المرور <i>*</i></span><span class="h">8 أحرف على الأقل مع رقم</span></label>
+          <div class="wrap"><input class="ltr" type="password" id="rPw" autocomplete="new-password" placeholder="••••••••"><button type="button" class="eye" data-eye="rPw" aria-label="إظهار كلمة المرور">👁</button></div>
+          <div class="meter"><span id="meter"></span></div><div class="ferr"></div></div>
+        <div class="field"><label for="rPw2"><span>تأكيد كلمة المرور <i>*</i></span></label><div class="wrap"><input class="ltr" type="password" id="rPw2" autocomplete="new-password" placeholder="••••••••"></div><div class="ferr"></div></div>
+        <button class="btn btn-gold" id="regBtn" type="submit" style="margin-top:6px">إنشاء الحساب</button>
+      </form>
+    </section>
 
-        <div class="field">
-          <label class="field-label" for="phoneInput">
-            <span>رقم الهاتف</span>
-            <span class="hint">سيصلك عليه رمز التحقق</span>
-          </label>
-          <div class="input-wrap" id="phoneWrap">
-            <select class="country-select" id="countrySelect">
-              <option value="966">🇸🇦 +966</option>
-              <option value="971">🇦🇪 +971</option>
-              <option value="965">🇰🇼 +965</option>
-              <option value="973">🇧🇭 +973</option>
-              <option value="974">🇶🇦 +974</option>
-              <option value="968">🇴🇲 +968</option>
-              <option value="962">🇯🇴 +962</option>
-              <option value="20">🇪🇬 +20</option>
-            </select>
-            <input class="input-field ltr" type="tel" id="phoneInput" placeholder="5X XXX XXXX" inputmode="numeric" autocomplete="tel-national" maxlength="12" />
-          </div>
-          <span id="phoneError" style="color:var(--error);font-size:12px;margin-top:6px;display:none"></span>
-        </div>
+    <!-- SUCCESS -->
+    <section class="panel hidden" id="pDone"><div class="done"><div class="ic">✓</div><h2>تم بنجاح!</h2><p class="sub" style="margin-top:6px">مرحباً <b id="dName"></b>، جاري تحويلك للمتجر…</p><div class="bar"><span></span></div></div></section>
 
-        <button class="btn btn-primary" id="submitBtn">
-          <span>إرسال طلب الدخول</span>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
-        </button>
+    <p class="back"><a href="index.html" class="lnk">← العودة إلى المتجر</a></p>
+  </main>
+</div>
 
-        <p class="switch-link">هل أنت مسؤول المتجر؟ <a href="admin.html">دخول لوحة التحكم</a></p>
-      </section>
-
-      <!-- ========= STEP 2: Waiting / OTP ========= -->
-      <section class="panel" id="panel-2">
-        <!-- Waiting sub-state -->
-        <div id="waitingState">
-          <div class="waiting-state">
-            <div class="pulse-ring">
-              <div class="pulse-icon">
-                <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-              </div>
-            </div>
-            <h2>بانتظار موافقة المسؤول</h2>
-            <p>تم إرسال طلبك بنجاح. سيصلك رمز التحقق قريباً.</p>
-
-            <div class="waiting-info">
-              <div><span>الاسم</span><span id="wName">—</span></div>
-              <div><span>الرقم</span><span id="wPhone">—</span></div>
-              <div><span>الحالة</span><span style="color:var(--warning)">⏳ قيد المراجعة</span></div>
-            </div>
-
-            <button class="btn btn-danger" id="cancelBtn">إلغاء والعودة</button>
-          </div>
-        </div>
-
-        <!-- OTP sub-state -->
-        <div id="otpState" class="hidden">
-          <h2 class="panel-title">أدخل رمز التحقق</h2>
-          <p class="panel-subtitle">أرسل لك المسؤول رمزاً مكوناً من 6 أرقام.</p>
-
-          <div class="demo-badge">
-            <span>🔧 للتطوير فقط — الرمز:</span>
-            <code id="demoOtp">------</code>
-            <span class="demo-hint">في الإنتاج يظهر لديك عبر SMS فقط</span>
-          </div>
-
-          <div class="otp-boxes">
-            <input class="otp-box" type="text" inputmode="numeric" maxlength="1">
-            <input class="otp-box" type="text" inputmode="numeric" maxlength="1">
-            <input class="otp-box" type="text" inputmode="numeric" maxlength="1">
-            <input class="otp-box" type="text" inputmode="numeric" maxlength="1">
-            <input class="otp-box" type="text" inputmode="numeric" maxlength="1">
-            <input class="otp-box" type="text" inputmode="numeric" maxlength="1">
-          </div>
-
-          <div class="otp-meta">
-            <span>الرقم: <strong id="displayPhone">—</strong></span>
-          </div>
-
-          <button class="btn btn-success" id="verifyBtn" disabled>
-            <span>تأكيد ودخول</span>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-          </button>
-
-          <button class="btn btn-ghost" id="cancelBtn2">إلغاء والعودة</button>
-        </div>
-
-        <!-- Rejected sub-state -->
-        <div id="rejectedState" class="hidden">
-          <div class="waiting-state">
-            <div class="rejected-icon">
-              <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            </div>
-            <h2>تم رفض الطلب</h2>
-            <p>لم يوافق المسؤول على طلب الدخول. يمكنك المحاولة مجدداً.</p>
-            <button class="btn btn-primary" id="retryBtn">محاولة جديدة</button>
-          </div>
-        </div>
-      </section>
-
-      <!-- ========= STEP 3: Success ========= -->
-      <section class="panel" id="panel-3">
-        <div class="success-screen">
-          <div class="success-icon">
-            <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-          </div>
-          <h2>تم تسجيل الدخول بنجاح!</h2>
-          <p>مرحباً <strong id="welcomeName">—</strong>، جاري تحويلك إلى المتجر...</p>
-          <div class="progress-bar"><span></span></div>
-        </div>
-      </section>
-    </main>
-
-    <aside class="brand">
-      <div class="logo">
-        <div class="logo-mark"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></div>
-        <span>متجرنا</span>
-      </div>
-      <div>
-        <h1>أهلاً بك في <em>متجرنا</em></h1>
-        <p class="brand-lead">دخول آمن بموافقة المسؤول. أدخل اسمك ورقمك، ثم انتظر رمز التحقق الذي يرسله المتجر إليك.</p>
-        <ul class="features">
-          <li><span class="feature-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg></span>طلب مُراجع يدوياً من المتجر</li>
-          <li><span class="feature-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92Z"/></svg></span>رمز تحقق يُرسَل لجوالك</li>
-          <li><span class="feature-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>تجربة سلسة وآمنة</li>
-        </ul>
-      </div>
-      <div class="brand-footer">© 2025 متجرنا · جميع الحقوق محفوظة</div>
-    </aside>
-  </div>
-
-  <div class="toast-container" id="toastContainer"></div>
+<div class="modal" id="forgotModal"><div class="ov" data-close></div>
+  <div class="box"><h3>🔑 استعادة كلمة المرور</h3>
+    <p>هذه نسخة تجريبية بدون خادم، لذلك لا يمكن إرسال رابط إعادة تعيين. تواصل مع الدعم عبر واتساب وسنساعدك بعد التحقق من هويتك.</p>
+    <a class="btn btn-gold" id="forgotWa" target="_blank" rel="noopener" style="background:#25d366;color:#fff;box-shadow:none">💬 تواصل عبر واتساب</a>
+    <button class="btn" data-close style="margin-top:8px;color:var(--muted)">إغلاق</button></div></div>
+<div class="toasts" id="toasts"></div>
 
 <script>
+/* =====================================================
+   LOGIN PAGE — واجهة أمامية تجريبية
+   تنبيه أمني: التخزين هنا في localStorage لأغراض النموذج فقط، وليس نظام مصادقة حقيقياً.
+   عند التشغيل الفعلي: نفّذ التسجيل وتسجيل الدخول عبر Backend (جلسات/JWT، تجزئة كلمات المرور
+   على الخادم، حدّ لمحاولات الدخول، وتحقق من البريد/الهاتف).
+===================================================== */
 (function(){
-  'use strict';
+'use strict';
+const DB_KEY='tz_db_v1';
+const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function readDB(){let d={};try{d=JSON.parse(localStorage.getItem(DB_KEY))||{}}catch{}if(!Array.isArray(d.users))d.users=[];return d}
+function writeDB(d){try{localStorage.setItem(DB_KEY,JSON.stringify(d));return true}catch{toast('تعذّر الحفظ (مساحة التخزين ممتلئة)','err');return false}}
+function toast(m,t='info'){const e=document.createElement('div');e.className='toast '+t;e.textContent=m;$('#toasts').appendChild(e);setTimeout(()=>e.remove(),3200)}
 
-  /* ============================================================
-     SYNC LAYER — shared with admin.html
-  ============================================================ */
-  const REQ_KEY = 'store_login_requests_v1';
-  const CHANNEL = 'store_login_sync';
-  const ACTIVE_ID_KEY = 'store_active_request_id';
+/* ---- Brand (يقرأ الشعار والاسم من إعدادات الإدارة إن وجدت) ---- */
+const S=Object.assign({storeName:'TOPUP ZONE',logo:'',whatsapp:''},readDB().settings||{});
+const mark=S.logo?`<img src="${esc(S.logo)}" alt="">`:`<svg viewBox="0 0 64 64" width="52" height="52" fill="none"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffe58f"/><stop offset=".5" stop-color="#f5b700"/><stop offset="1" stop-color="#b97a00"/></linearGradient></defs><path d="M20 22v-4a12 12 0 0 1 24 0v4" stroke="url(#g)" stroke-width="4" stroke-linecap="round"/><path d="M12 22h40l-3 34a4 4 0 0 1-4 3.5H19a4 4 0 0 1-4-3.5L12 22Z" stroke="url(#g)" stroke-width="4" stroke-linejoin="round"/><path d="M22 28h20M32 28v16" stroke="url(#g)" stroke-width="5" stroke-linecap="round"/><circle cx="26" cy="52" r="2.4" fill="url(#g)"/><circle cx="38" cy="52" r="2.4" fill="url(#g)"/></svg>`;
+const parts=S.storeName.trim().split(/\s+/);
+const bhtml=`<span class="mk">${mark}</span><span class="tx"><b>${esc(parts[0]||'')}</b><i class="gold-text">${esc(parts.slice(1).join(' '))}</i></span>`;
+$('#brandSide').innerHTML=bhtml;$('#brandMobile').innerHTML=bhtml;
+$('#yr').textContent=new Date().getFullYear();
+document.title='تسجيل الدخول · '+S.storeName;
+$('#forgotWa').href='https://wa.me/'+String(S.whatsapp||'').replace(/\D/g,'')+'?text='+encodeURIComponent('مرحباً، نسيت كلمة مرور حسابي.');
 
-  let bc = null;
-  try { bc = new BroadcastChannel(CHANNEL); } catch(_) {}
-
-  function loadRequests(){
-    try { return JSON.parse(localStorage.getItem(REQ_KEY) || '[]'); }
-    catch { return []; }
+/* ---- Password hashing (PBKDF2 عبر Web Crypto) ---- */
+const hex=b=>[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('');
+function fromHex(h){return new Uint8Array(h.match(/../g).map(x=>parseInt(x,16)))}
+async function hashPw(pw,saltHex){
+  if(crypto?.subtle){
+    const salt=saltHex?fromHex(saltHex):crypto.getRandomValues(new Uint8Array(16));
+    const key=await crypto.subtle.importKey('raw',new TextEncoder().encode(pw),'PBKDF2',false,['deriveBits']);
+    const bits=await crypto.subtle.deriveBits({name:'PBKDF2',salt,iterations:150000,hash:'SHA-256'},key,256);
+    return{salt:hex(salt),hash:hex(bits),algo:'pbkdf2'};
   }
-  function saveRequests(list){
-    localStorage.setItem(REQ_KEY, JSON.stringify(list));
-    window.dispatchEvent(new CustomEvent('store:changed'));
-    try { bc && bc.postMessage('update'); } catch(_) {}
-  }
-  function addRequest(req){
-    const list = loadRequests();
-    list.push(req);
-    saveRequests(list);
-    return req;
-  }
-  function updateRequest(id, patch){
-    const list = loadRequests();
-    const i = list.findIndex(r => r.id === id);
-    if (i < 0) return null;
-    list[i] = { ...list[i], ...patch, updatedAt: Date.now() };
-    saveRequests(list);
-    return list[i];
-  }
-  function findRequest(id){
-    return loadRequests().find(r => r.id === id);
-  }
+  // احتياطي ضعيف عند غياب Web Crypto (بيئة غير آمنة) — للتجربة فقط
+  const salt=saltHex||Math.random().toString(16).slice(2,18);let h=5381;const s=salt+pw;
+  for(let i=0;i<s.length;i++)h=((h<<5)+h+s.charCodeAt(i))>>>0;
+  return{salt,hash:h.toString(16),algo:'weak'};
+}
+function safeEq(a,b){if(a.length!==b.length)return false;let r=0;for(let i=0;i<a.length;i++)r|=a.charCodeAt(i)^b.charCodeAt(i);return r===0}
 
-  function uid(){
-    return 'req_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2,8);
-  }
+/* ---- Validation ---- */
+const emailRe=/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+const normPhone=p=>{let d=String(p).replace(/\D/g,'');if(d.startsWith('00'))d=d.slice(2);return d};
+const validPhone=p=>{const d=normPhone(p);return d.length>=9&&d.length<=15};
+const samePhone=(a,b)=>{const x=normPhone(a),y=normPhone(b);return x&&y&&x.slice(-9)===y.slice(-9)};
+function err(inp,msg){const w=inp.closest('.wrap');w.classList.add('err');const f=inp.closest('.field').querySelector('.ferr');f.textContent=msg;f.style.display='block'}
+function clearErr(form){$$('.wrap',form).forEach(w=>w.classList.remove('err'));$$('.ferr',form).forEach(f=>f.style.display='none')}
+function alertBox(id,msg,type){const a=$('#'+id);a.className='alert '+(msg?type:'');a.textContent=msg||''}
+function setLoad(b,on){b.classList.toggle('loading',on);b.disabled=on}
+const delay=ms=>new Promise(r=>setTimeout(r,ms));
 
-  /* ============================================================
-     DOM
-  ============================================================ */
-  const $ = (s) => document.querySelector(s);
-  const $$ = (s) => document.querySelectorAll(s);
+/* ---- Tabs ---- */
+function tab(t){
+  $('#seg').classList.toggle('reg',t==='register');
+  $$('#seg button').forEach(b=>b.classList.toggle('on',b.dataset.tab===t));
+  $('#pLogin').classList.toggle('hidden',t!=='login');$('#pReg').classList.toggle('hidden',t!=='register');
+  (t==='login'?$('#lId'):$('#rName')).focus();
+}
+$$('#seg button').forEach(b=>b.addEventListener('click',()=>tab(b.dataset.tab)));
+$$('[data-eye]').forEach(b=>b.addEventListener('click',()=>{const i=$('#'+b.dataset.eye);const s=i.type==='password';i.type=s?'text':'password';b.textContent=s?'🙈':'👁'}));
+$('#forgot').addEventListener('click',e=>{e.preventDefault();$('#forgotModal').classList.add('open')});
+$$('#forgotModal [data-close]').forEach(x=>x.addEventListener('click',()=>$('#forgotModal').classList.remove('open')));
+document.addEventListener('keydown',e=>{if(e.key==='Escape')$('#forgotModal').classList.remove('open')});
+$$('input').forEach(i=>i.addEventListener('input',()=>{const w=i.closest('.wrap');if(w){w.classList.remove('err');const f=i.closest('.field').querySelector('.ferr');if(f)f.style.display='none'}}));
+$('#rPw').addEventListener('input',e=>{
+  const v=e.target.value;let s=0;if(v.length>=8)s++;if(/[A-Za-z]/.test(v)&&/\d/.test(v))s++;if(v.length>=12)s++;if(/[^A-Za-z0-9]/.test(v))s++;
+  const m=$('#meter');m.style.width=(v?s*25:0)+'%';m.style.background=s<=1?'#ef4444':s===2?'#f59e0b':'#22c55e';
+});
 
-  const nameInput  = $('#nameInput');
-  const nameWrap   = $('#nameWrap');
-  const nameError  = $('#nameError');
-  const phoneInput = $('#phoneInput');
-  const phoneWrap  = $('#phoneWrap');
-  const phoneError = $('#phoneError');
-  const countrySel = $('#countrySelect');
-  const submitBtn  = $('#submitBtn');
-  const cancelBtn  = $('#cancelBtn');
-  const cancelBtn2 = $('#cancelBtn2');
-  const retryBtn   = $('#retryBtn');
-  const verifyBtn  = $('#verifyBtn');
-  const otpBoxes   = $$('.otp-box');
-  const demoOtp    = $('#demoOtp');
-  const displayPhone = $('#displayPhone');
-  const wName      = $('#wName');
-  const wPhone     = $('#wPhone');
-  const welcomeName = $('#welcomeName');
-  const toastCtr   = $('#toastContainer');
+/* ---- Session + redirect ---- */
+function nextUrl(){const n=new URLSearchParams(location.search).get('next')||'index.html';return /^[\w\-]+\.html$/.test(n)?n:'index.html'}
+function startSession(u,remember){
+  const s=JSON.stringify({uid:u.id,exp:remember?Date.now()+30*864e5:0});
+  localStorage.removeItem('tz_session');sessionStorage.removeItem('tz_session');
+  (remember?localStorage:sessionStorage).setItem('tz_session',s);
+  $('#dName').textContent=u.name;
+  ['pLogin','pReg'].forEach(i=>$('#'+i).classList.add('hidden'));$('#seg').classList.add('hidden');$('#pDone').classList.remove('hidden');
+  setTimeout(()=>location.href=nextUrl(),1700);
+}
 
-  const panels    = $$('.panel');
-  const stepDots  = $$('.step-dot');
-  const stepLines = $$('.step-line');
-
-  let currentRequestId = null;
-
-  /* ============================================================
-     HELPERS
-  ============================================================ */
-  function toast(msg, type='info'){
-    const el = document.createElement('div');
-    el.className = `toast ${type}`;
-    el.textContent = msg;
-    toastCtr.appendChild(el);
-    setTimeout(()=>{ el.classList.add('leaving'); setTimeout(()=>el.remove(),300); }, 3200);
-  }
-
-  function goToStep(n){
-    panels.forEach(p => p.classList.remove('active'));
-    $(`#panel-${n}`).classList.add('active');
-    stepDots.forEach(d => {
-      const s = Number(d.dataset.step);
-      d.classList.toggle('active', s === n);
-      d.classList.toggle('done', s < n);
-      d.textContent = s < n ? '✓' : d.dataset.step;
-    });
-    stepLines.forEach((l,i) => l.classList.toggle('done', i+1 < n));
-  }
-
-  function showWaiting(){ goToStep(2); $('#waitingState').classList.remove('hidden'); $('#otpState').classList.add('hidden'); $('#rejectedState').classList.add('hidden'); }
-  function showOtp(){ goToStep(2); $('#waitingState').classList.add('hidden'); $('#otpState').classList.remove('hidden'); $('#rejectedState').classList.add('hidden'); }
-  function showRejected(){ goToStep(2); $('#waitingState').classList.add('hidden'); $('#otpState').classList.add('hidden'); $('#rejectedState').classList.remove('hidden'); }
-
-  function setLoading(btn, on){ btn.classList.toggle('loading', on); btn.disabled = on; }
-  const delay = ms => new Promise(r => setTimeout(r, ms));
-
-  function validatePhone(code, raw){
-    let d = raw.replace(/\D/g,'');
-    if (d.startsWith('0')) d = d.slice(1);
-    if (d.startsWith(code)) d = d.slice(code.length);
-    const rules = {
-      '966':{len:9,re:/^5\d{8}$/}, '971':{len:9,re:/^5\d{8}$/},
-      '965':{len:8,re:/^[569]\d{7}$/}, '973':{len:8,re:/^\d{8}$/},
-      '974':{len:8,re:/^\d{8}$/}, '968':{len:8,re:/^[279]\d{7}$/},
-      '962':{len:9,re:/^7[789]\d{7}$/}, '20':{len:10,re:/^1\d{9}$/},
-    };
-    const r = rules[code];
-    if (!r || d.length !== r.len || !r.re.test(d)) return {valid:false};
-    return {valid:true, e164:`+${code}${d}`};
-  }
-
-  /* ============================================================
-     INPUT HANDLERS
-  ============================================================ */
-  nameInput.addEventListener('input', () => {
-    nameWrap.classList.remove('error');
-    nameError.style.display = 'none';
-  });
-  phoneInput.addEventListener('input', (e) => {
-    e.target.value = e.target.value.replace(/\D/g,'').slice(0,12);
-    phoneWrap.classList.remove('error');
-    phoneError.style.display = 'none';
-  });
-  phoneInput.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') { e.preventDefault(); submitBtn.click(); }
-  });
-
-  /* ============================================================
-     STEP 1: SUBMIT REQUEST
-  ============================================================ */
-  submitBtn.addEventListener('click', async () => {
-    nameWrap.classList.remove('error'); nameError.style.display = 'none';
-    phoneWrap.classList.remove('error'); phoneError.style.display = 'none';
-
-    const name = nameInput.value.trim();
-    const rawPhone = phoneInput.value.trim();
-
-    if (name.length < 2) {
-      nameWrap.classList.add('error');
-      nameError.textContent = 'يرجى إدخال اسمك الكامل (حرفان على الأقل).';
-      nameError.style.display = 'block';
-      nameInput.focus();
-      return;
+/* ---- Login ---- */
+let fails=0,lockUntil=0;
+$('#loginForm').addEventListener('submit',async e=>{
+  e.preventDefault();clearErr(e.target);alertBox('loginAlert','');
+  const idI=$('#lId'),pwI=$('#lPw'),id=idI.value.trim();let ok=true;
+  if(!id){err(idI,'أدخل البريد الإلكتروني أو رقم الهاتف.');ok=false}
+  else if(!emailRe.test(id)&&!validPhone(id)){err(idI,'صيغة البريد أو رقم الهاتف غير صحيحة.');ok=false}
+  if(!pwI.value){err(pwI,'أدخل كلمة المرور.');ok=false}
+  if(!ok){(idI.closest('.wrap').classList.contains('err')?idI:pwI).focus();return}
+  if(Date.now()<lockUntil){alertBox('loginAlert',`محاولات كثيرة. انتظر ${Math.ceil((lockUntil-Date.now())/1000)} ثانية.`,'err');return}
+  const btn=$('#loginBtn');setLoad(btn,true);
+  try{
+    await delay(400);
+    const db=readDB();
+    const u=db.users.find(x=>emailRe.test(id)?(x.email&&x.email.toLowerCase()===id.toLowerCase()):samePhone(x.phone,id));
+    let good=false;
+    if(u){const r=await hashPw(pwI.value,u.salt);good=safeEq(r.hash,u.hash)}
+    else await hashPw(pwI.value); // تقليل فرق التوقيت
+    if(!good){
+      fails++;if(fails>=5){lockUntil=Date.now()+60000;fails=0}
+      alertBox('loginAlert','بيانات الدخول غير صحيحة.','err');pwI.value='';pwI.focus();return;
     }
-    if (!rawPhone) {
-      phoneWrap.classList.add('error');
-      phoneError.textContent = 'يرجى إدخال رقم الهاتف.';
-      phoneError.style.display = 'block';
-      phoneInput.focus();
-      return;
-    }
-    const res = validatePhone(countrySel.value, rawPhone);
-    if (!res.valid) {
-      phoneWrap.classList.add('error');
-      phoneError.textContent = 'رقم الهاتف غير صحيح لهذه الدولة.';
-      phoneError.style.display = 'block';
-      phoneInput.focus();
-      return;
-    }
+    fails=0;startSession(u,$('#remember').checked);
+  }finally{setLoad(btn,false)}
+});
 
-    setLoading(submitBtn, true);
-    try {
-      await delay(600);
+/* ---- Register ---- */
+$('#regForm').addEventListener('submit',async e=>{
+  e.preventDefault();clearErr(e.target);alertBox('regAlert','');
+  const n=$('#rName'),p=$('#rPhone'),em=$('#rEmail'),pw=$('#rPw'),pw2=$('#rPw2');let ok=true;
+  if(n.value.trim().length<2){err(n,'أدخل اسمك الكامل (حرفان على الأقل).');ok=false}
+  if(!validPhone(p.value)){err(p,'أدخل رقم هاتف صحيحاً (9–15 رقماً).');ok=false}
+  if(em.value.trim()&&!emailRe.test(em.value.trim())){err(em,'البريد الإلكتروني غير صحيح.');ok=false}
+  if(pw.value.length<8||!/[A-Za-z]/.test(pw.value)||!/\d/.test(pw.value)){err(pw,'كلمة المرور 8 أحرف على الأقل وتحتوي على حروف وأرقام.');ok=false}
+  if(pw2.value!==pw.value){err(pw2,'كلمتا المرور غير متطابقتين.');ok=false}
+  if(!ok){toast('راجع الحقول المظللة','err');return}
+  const btn=$('#regBtn');setLoad(btn,true);
+  try{
+    const db=readDB();
+    if(db.users.some(u=>samePhone(u.phone,p.value))){err(p,'هذا الرقم مسجّل مسبقاً. سجّل الدخول بدلاً من ذلك.');return}
+    if(em.value.trim()&&db.users.some(u=>u.email&&u.email.toLowerCase()===em.value.trim().toLowerCase())){err(em,'هذا البريد مسجّل مسبقاً.');return}
+    const h=await hashPw(pw.value);
+    const u={id:'u'+Date.now().toString(36)+Math.random().toString(36).slice(2,5),name:n.value.trim(),phone:normPhone(p.value),email:em.value.trim(),salt:h.salt,hash:h.hash,algo:h.algo,createdAt:Date.now()};
+    db.users.push(u);
+    if(!writeDB(db))return;
+    startSession(u,false);
+  }finally{setLoad(btn,false)}
+});
 
-      const req = addRequest({
-        id: uid(),
-        name,
-        phone: res.e164,
-        status: 'pending',
-        otp: null,
-        createdAt: Date.now(),
-        updatedAt: Date.now(),
-      });
-      currentRequestId = req.id;
-      sessionStorage.setItem(ACTIVE_ID_KEY, req.id);
-
-      wName.textContent = req.name;
-      wPhone.textContent = req.phone;
-      showWaiting();
-      toast('تم إرسال طلبك. في انتظار موافقة المسؤول.', 'success');
-    } finally {
-      setLoading(submitBtn, false);
-    }
-  });
-
-  /* ============================================================
-     CANCEL / RETRY
-  ============================================================ */
-  function cancelRequest(){
-    if (currentRequestId) {
-      // mark cancelled — just delete from storage
-      const list = loadRequests().filter(r => r.id !== currentRequestId);
-      saveRequests(list);
-    }
-    sessionStorage.removeItem(ACTIVE_ID_KEY);
-    currentRequestId = null;
-    nameInput.value = '';
-    phoneInput.value = '';
-    goToStep(1);
-  }
-  cancelBtn.addEventListener('click', cancelRequest);
-  cancelBtn2.addEventListener('click', cancelRequest);
-  retryBtn.addEventListener('click', () => {
-    sessionStorage.removeItem(ACTIVE_ID_KEY);
-    currentRequestId = null;
-    goToStep(1);
-    nameInput.focus();
-  });
-
-  /* ============================================================
-     OTP INPUTS
-  ============================================================ */
-  function getOtpValue(){ return Array.from(otpBoxes).map(b => b.value).join(''); }
-  function checkOtpComplete(){
-    verifyBtn.disabled = getOtpValue().length !== 6;
-    otpBoxes.forEach(b => b.classList.toggle('filled', b.value.length === 1));
-  }
-
-  otpBoxes.forEach((box, i) => {
-    box.addEventListener('input', (e) => {
-      e.target.value = e.target.value.replace(/\D/g,'').slice(-1);
-      if (e.target.value && i < otpBoxes.length - 1) otpBoxes[i+1].focus();
-      checkOtpComplete();
-    });
-    box.addEventListener('keydown', (e) => {
-      if (e.key === 'Backspace' && !e.target.value && i > 0) {
-        otpBoxes[i-1].focus(); otpBoxes[i-1].value = ''; checkOtpComplete();
-      }
-      if (e.key === 'Enter' && !verifyBtn.disabled) verifyBtn.click();
-    });
-    box.addEventListener('paste', (e) => {
-      e.preventDefault();
-      const p = (e.clipboardData.getData('text') || '').replace(/\D/g,'').slice(0,6);
-      p.split('').forEach((ch, j) => { if (otpBoxes[i+j]) otpBoxes[i+j].value = ch; });
-      otpBoxes[Math.min(i+p.length, 5)].focus();
-      checkOtpComplete();
-    });
-    box.addEventListener('focus', (e) => e.target.select());
-  });
-
-  /* ============================================================
-     VERIFY OTP
-  ============================================================ */
-  verifyBtn.addEventListener('click', async () => {
-    const req = findRequest(currentRequestId);
-    if (!req) {
-      toast('انتهت صلاحية الطلب. يرجى البدء من جديد.', 'error');
-      cancelRequest();
-      return;
-    }
-    if (req.status === 'rejected') { showRejected(); return; }
-
-    setLoading(verifyBtn, true);
-    try {
-      await delay(600);
-
-      if (getOtpValue() === req.otp) {
-        updateRequest(req.id, { status: 'verified' });
-        welcomeName.textContent = req.name;
-        goToStep(3);
-        sessionStorage.setItem('store_session', JSON.stringify({
-          role:'customer', name:req.name, phone:req.phone, at:Date.now(),
-        }));
-        sessionStorage.removeItem(ACTIVE_ID_KEY);
-        setTimeout(() => {
-          // window.location.href = 'store.html';
-          toast('سيتم التحويل إلى store.html', 'info');
-        }, 2200);
-      } else {
-        otpBoxes.forEach(b => b.classList.add('error'));
-        setTimeout(() => otpBoxes.forEach(b => b.classList.remove('error')), 500);
-        otpBoxes.forEach(b => (b.value = ''));
-        otpBoxes[0].focus();
-        checkOtpComplete();
-        toast('الرمز غير صحيح. حاول مرة أخرى.', 'error');
-      }
-    } finally {
-      setLoading(verifyBtn, false);
-      checkOtpComplete();
-    }
-  });
-
-  /* ============================================================
-     REAL-TIME SYNC — poll + storage + broadcast
-  ============================================================ */
-  function refreshFromStorage(){
-    if (!currentRequestId) return;
-    const req = findRequest(currentRequestId);
-    if (!req) {
-      // deleted by admin
-      showRejected();
-      return;
-    }
-
-    // Only act if status changed
-    if (req.status === 'otp_sent' && getOtpValue().length === 0 && !$('#otpState').classList.contains('hidden') === false) {
-      // we're on waiting or rejected — move to OTP
-      if (!$('#otpState').classList.contains('hidden') === false || !$('#rejectedState').classList.contains('hidden')) {
-        demoOtp.textContent = req.otp || '------';
-        displayPhone.textContent = req.phone;
-        showOtp();
-        setTimeout(() => otpBoxes[0].focus(), 200);
-        toast('📨 وصل رمز التحقق من المسؤول!', 'success');
-      }
-    }
-
-    if (req.status === 'otp_sent' && $('#otpState').classList.contains('hidden')) {
-      demoOtp.textContent = req.otp;
-      displayPhone.textContent = req.phone;
-      showOtp();
-      setTimeout(() => otpBoxes[0].focus(), 200);
-      toast('📨 وصل رمز التحقق من المسؤول!', 'success');
-    }
-
-    if (req.status === 'rejected' && !$('#rejectedState').classList.contains('hidden') === false) {
-      showRejected();
-    }
-
-    if (req.status === 'verified') {
-      // maybe admin verified manually
-      const panel3 = $('#panel-3');
-      if (!panel3.classList.contains('active')) {
-        welcomeName.textContent = req.name;
-        goToStep(3);
-        sessionStorage.removeItem(ACTIVE_ID_KEY);
-      }
-    }
-  }
-
-  if (bc) bc.onmessage = (e) => { if (e.data === 'update') refreshFromStorage(); };
-  window.addEventListener('storage', (e) => { if (e.key === REQ_KEY) refreshFromStorage(); });
-  window.addEventListener('store:changed', refreshFromStorage);
-  setInterval(refreshFromStorage, 1500);
-
-  /* ============================================================
-     RESTORE ON LOAD
-  ============================================================ */
-  (function restore(){
-    const id = sessionStorage.getItem(ACTIVE_ID_KEY);
-    if (!id) { nameInput.focus(); return; }
-    const req = findRequest(id);
-    if (!req) { sessionStorage.removeItem(ACTIVE_ID_KEY); nameInput.focus(); return; }
-
-    currentRequestId = id;
-    wName.textContent = req.name;
-    wPhone.textContent = req.phone;
-
-    if (req.status === 'pending') showWaiting();
-    else if (req.status === 'otp_sent') {
-      demoOtp.textContent = req.otp;
-      displayPhone.textContent = req.phone;
-      showOtp();
-    } else if (req.status === 'rejected') showRejected();
-    else if (req.status === 'verified') {
-      welcomeName.textContent = req.name;
-      goToStep(3);
-      sessionStorage.removeItem(ACTIVE_ID_KEY);
-    }
-  })();
+if(location.hash==='#register')tab('register');
 })();
 </script>
 </body>
-  </html>
+</html>
